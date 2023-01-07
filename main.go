@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/ribincao/ribin-game-logic/constant"
+	"github.com/ribincao/ribin-game-logic/handler"
 	"github.com/ribincao/ribin-game-server/config"
 	"github.com/ribincao/ribin-game-server/logger"
 	"github.com/ribincao/ribin-game-server/server"
@@ -32,6 +33,8 @@ func initLogger() {
 func run(ctx context.Context) {
 	srv := server.NewServer(server.RoomServer)
 	// TODO: Set Handler / Set ConnCloseCallBack
+	srv.SetConnCloseCallback(handler.OnClose)
+	srv.SetHandler(handler.HandleRoomMessage)
 
 	utils.GoWithRecover(srv.Serve)
 }

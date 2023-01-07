@@ -15,10 +15,14 @@ github.com/natefinch/lumberjack v2.0.0+incompatible/go.mod h1:Wi9p2TTF5DG5oU+6Yf
 github.com/pkg/errors v0.8.1 h1:iURUrRGxPUNPdy5/HRSm+Yj6okJ6UtLINN0Q9M4+h3I=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
-github.com/ribincao/ribin-game-server v0.0.0-20230105023903-935d597e17c6 h1:DtNZCg0rjrRZbrL40gIVnT3ujbbLF6qZ/pX9d5qQxcU=
-github.com/ribincao/ribin-game-server v0.0.0-20230105023903-935d597e17c6/go.mod h1:bSvqMO0SU3Txh9Ghu/o8rgiJSSkMdC8yHt1zScAkVRA=
+github.com/ribincao/ribin-game-server v0.0.0-20230107101534-8f341f7b0fb2 h1:c4hJGas4kKykbuVUxhCqPTl94eM/Nik7RqUn53M6NHA=
+github.com/ribincao/ribin-game-server v0.0.0-20230107101534-8f341f7b0fb2/go.mod h1:bSvqMO0SU3Txh9Ghu/o8rgiJSSkMdC8yHt1zScAkVRA=
+github.com/ribincao/ribin-game-server v0.0.0-20230107102329-240d9a2a24b6 h1:TZzYTQCTFpOS1yR7HFGPxejcHdOsJnuc+oudfcMUfOM=
+github.com/ribincao/ribin-game-server v0.0.0-20230107102329-240d9a2a24b6/go.mod h1:bSvqMO0SU3Txh9Ghu/o8rgiJSSkMdC8yHt1zScAkVRA=
 github.com/ribincao/ribin-protocol v0.0.0-20221228125559-a71e1855400d h1:2KJR87N+upCbl12FRzNjruMFU8tfcVfgIFwvjNz2TZg=
 github.com/ribincao/ribin-protocol v0.0.0-20221228125559-a71e1855400d/go.mod h1:IumPkkZFeJbOLc84iMceqG8HfSPDxj31mUpt1tWdDKI=
+github.com/ribincao/ribin-protocol v0.0.0-20230107104254-90bb94133d47 h1:IxA3Z7yG+zycdBfhHz5DwmIpihlNtk+bqWwneWUX9Ag=
+github.com/ribincao/ribin-protocol v0.0.0-20230107104254-90bb94133d47/go.mod h1:EsLQAhZnHlKI58UpsiO9qhO3ZV40NS4R33hb2BGBDUg=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UVUgZn+9EI=
 github.com/stretchr/testify v1.8.0 h1:pSgiaMZlXftHpm5L7V1+rVB+AZJydKsMxsQBIJw4PKk=
