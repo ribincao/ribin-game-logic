@@ -1,0 +1,8 @@
+serviceConfig:
+  env: local
+logConfig:
+  logLevel: debug
+  logPath: server.log
+  logMode: combine
+  logMaxAge: 3
+  logMaxSize: 512
