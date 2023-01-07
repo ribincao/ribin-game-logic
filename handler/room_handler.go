@@ -10,10 +10,10 @@ import (
 	"go.uber.org/zap"
 )
 
-func HandleRoomMessage(ctx context.Context, conn *network.WrapConnection, req *base.Test) (*base.Test, error) {
+func HandleRoomMessage(ctx context.Context, conn *network.WrapConnection, req *base.Client2ServerReq) (*base.Server2ClientRsp, error) {
 	var (
 		err *errs.Error
-		rsp = &base.Test{}
+		rsp = &base.Server2ClientRsp{}
 	)
 
 	logger.Info("HandleRoomMessage IN", zap.Any("Req", req))
