@@ -4,6 +4,7 @@ import (
 	"github.com/ribincao/ribin-game-logic/logic"
 	"github.com/ribincao/ribin-game-server/manager"
 	"github.com/ribincao/ribin-game-server/network"
+	"github.com/ribincao/ribin-protocol/base"
 )
 
 func OnClose(conn *network.WrapConnection) {
@@ -16,5 +17,5 @@ func OnClose(conn *network.WrapConnection) {
 		return
 	}
 	room.RemovePlayer(conn.PlayerId)
-	// TODO: Broadcast
+	room.Broadcast(base.Server2ClientBstType_E_PUSH_ROOM_MESSAGE, nil, "") // TODO: Broadcast
 }

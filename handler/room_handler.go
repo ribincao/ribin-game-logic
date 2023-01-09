@@ -72,14 +72,16 @@ func handleEnterRoom(ctx context.Context, conn *network.WrapConnection, enterRoo
 		err          *errs.Error
 		enterRoomRsp = &base.RspBody{}
 	)
-	_, _, err = CheckReqParam(enterRoomReq)
+	room, _, err := CheckReqParam(enterRoomReq)
 	if err == errs.RoomUnexistError {
-		// Create Room
-		return nil, nil
+		roomInfo, err := CreateRoom(enterRoomReq)
+		enterRoomRsp.RoomInfo = roomInfo
+		return enterRoomRsp, err
 	}
 	if err == errs.PlayerNotInRoomError {
-		// JoinRoom
-		return nil, nil
+		roomInfo, err := JoinRoom(room, enterRoomReq.PlayerId)
+		enterRoomRsp.RoomInfo = roomInfo
+		return enterRoomRsp, err
 	}
 
 	logger.Info("HandleEnterRoom OUT", zap.Any("EnterRoomRsp", enterRoomRsp), zap.String("Seq", seq))
@@ -98,6 +100,7 @@ func handleLeaveRoom(ctx context.Context, conn *network.WrapConnection, leaveRoo
 		return leaveRoomRsp, err
 	}
 	room.RemovePlayer(player.GetId())
+	room.Broadcast(base.Server2ClientBstType_E_PUSH_ROOM_LEAVE, nil, seq) // TODO: Broadcast
 
 	logger.Info("HandleLeaveRoom OUT", zap.Any("LeaveRoomRsp", leaveRoomRsp), zap.String("Seq", seq))
 	return leaveRoomRsp, err
@@ -130,12 +133,12 @@ func handleRoomMessage(ctx context.Context, roomMessageReq *base.ReqBody, seq st
 		err            *errs.Error
 		roomMessageRsp = &base.RspBody{}
 	)
-	_, _, err = CheckReqParam(roomMessageReq)
+	room, player, err := CheckReqParam(roomMessageReq)
 	if err != nil {
 		return roomMessageRsp, err
 	}
 
-	// TODO: 消息类型
+	err = HandleMessage(room, player, roomMessageReq)
 
 	logger.Info("HandleRoomMessage OUT", zap.Any("RoomMessageRsp", roomMessageRsp), zap.String("Seq", seq))
 	return roomMessageRsp, err

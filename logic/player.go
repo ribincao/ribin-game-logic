@@ -32,6 +32,9 @@ func (p *NormalPlayer) GetName() string {
 	return p.Name
 }
 
+func (p *NormalPlayer) GetRoomConn() *network.WrapConnection {
+	return p.RoomConn
+}
 func (p *NormalPlayer) SetRoomConn(conn *network.WrapConnection) {
 	p.Lock()
 	if conn == p.RoomConn {
