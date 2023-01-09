@@ -14,7 +14,10 @@ import (
 	"github.com/ribincao/ribin-game-server/logger"
 	"github.com/ribincao/ribin-game-server/server"
 	"github.com/ribincao/ribin-game-server/utils"
+	"go.uber.org/zap"
 )
+
+const TestPort = 8080
 
 func main() {
 	initLogger()
@@ -31,12 +34,18 @@ func initLogger() {
 }
 
 func run(ctx context.Context) {
+	var port int32
 	// TODO: Match-Server allocate Server
-	srv := server.NewServer(server.RoomServer)
+	if config.GlobalConfig.ServiceConfig.Env == "local" {
+		port = TestPort
+	}
+	srv := server.NewServer(server.RoomServer, server.WithAddress(fmt.Sprintf(":%d", port)))
 	srv.SetConnCloseCallback(handler.OnClose)
 	srv.SetHandler(handler.HandleRoomMessage)
 
 	utils.GoWithRecover(srv.Serve)
+
+	logger.Info("Server Start Success.", zap.Any("Port", port))
 }
 
 func handleSignal(ctx context.Context, cancel context.CancelFunc) {
@@ -62,6 +71,4 @@ func handleSignal(ctx context.Context, cancel context.CancelFunc) {
 		time.Sleep(1 * time.Second)
 		os.Exit(0)
 	}()
-
-	logger.Info("Server Start Success.")
 }
