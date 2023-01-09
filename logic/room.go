@@ -10,6 +10,12 @@ type NormalRoom struct {
 	playerMap sync.Map
 }
 
+func NewNormalRoom(roomId string) *NormalPlayer {
+	return &NormalPlayer{
+		Id: roomId,
+	}
+}
+
 func (r *NormalRoom) GetId() string {
 	return r.Id
 }

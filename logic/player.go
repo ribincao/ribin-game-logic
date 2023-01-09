@@ -5,6 +5,13 @@ type NormalPlayer struct {
 	Name string
 }
 
+func NewNormalPlayer(playerId string, name string) *NormalPlayer {
+	return &NormalPlayer{
+		Id:   playerId,
+		Name: name,
+	}
+}
+
 func (p *NormalPlayer) GetId() string {
 	return p.Id
 }

@@ -62,4 +62,6 @@ func handleSignal(ctx context.Context, cancel context.CancelFunc) {
 		time.Sleep(1 * time.Second)
 		os.Exit(0)
 	}()
+
+	logger.Info("Server Start Success.")
 }
