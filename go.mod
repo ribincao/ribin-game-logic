@@ -3,8 +3,8 @@ module github.com/ribincao/ribin-game-logic
 go 1.19
 
 require (
-	github.com/ribincao/ribin-game-server v0.0.0-20230109065455-dc108755bc89
-	github.com/ribincao/ribin-protocol v0.0.0-20230107104254-90bb94133d47
+	github.com/ribincao/ribin-game-server v0.0.0-20230109102138-7afa56c477f7
+	github.com/ribincao/ribin-protocol v0.0.0-20230109093405-7f63cd6fa8cb
 	go.uber.org/zap v1.24.0
 )
 

@@ -41,7 +41,7 @@ func run(ctx context.Context) {
 	}
 	srv := server.NewServer(server.RoomServer, server.WithAddress(fmt.Sprintf(":%d", port)))
 	srv.SetConnCloseCallback(handler.OnClose)
-	srv.SetHandler(handler.HandleRoomMessage)
+	srv.SetHandler(handler.HandleServerMessage)
 
 	utils.GoWithRecover(srv.Serve)
 
