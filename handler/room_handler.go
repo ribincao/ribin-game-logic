@@ -72,7 +72,15 @@ func handleEnterRoom(ctx context.Context, conn *network.WrapConnection, enterRoo
 		err          *errs.Error
 		enterRoomRsp = &base.RspBody{}
 	)
-	// TODO: EnterRoomLogic
+	_, _, err = CheckReqParam(enterRoomReq)
+	if err == errs.RoomUnexistError {
+		// Create Room
+		return nil, nil
+	}
+	if err == errs.PlayerNotInRoomError {
+		// JoinRoom
+		return nil, nil
+	}
 
 	logger.Info("HandleEnterRoom OUT", zap.Any("EnterRoomRsp", enterRoomRsp), zap.String("Seq", seq))
 	return enterRoomRsp, err
@@ -85,7 +93,11 @@ func handleLeaveRoom(ctx context.Context, conn *network.WrapConnection, leaveRoo
 		err          *errs.Error
 		leaveRoomRsp = &base.RspBody{}
 	)
-	// TODO: LeaveRoomLogic
+	room, player, err := CheckReqParam(leaveRoomReq)
+	if err != nil {
+		return leaveRoomRsp, err
+	}
+	room.RemovePlayer(player.GetId())
 
 	logger.Info("HandleLeaveRoom OUT", zap.Any("LeaveRoomRsp", leaveRoomRsp), zap.String("Seq", seq))
 	return leaveRoomRsp, err
@@ -97,7 +109,6 @@ func handleHeartBeat(ctx context.Context, conn *network.WrapConnection, heartBea
 		err          *errs.Error
 		heartBeatRsp = &base.RspBody{}
 	)
-	// TODO: HeartBeatLogic
 	_, player, err := CheckReqParam(heartBeatReq)
 	if err != nil {
 		return heartBeatRsp, err
@@ -119,7 +130,12 @@ func handleRoomMessage(ctx context.Context, roomMessageReq *base.ReqBody, seq st
 		err            *errs.Error
 		roomMessageRsp = &base.RspBody{}
 	)
-	// TODO: RoomMessageLogic
+	_, _, err = CheckReqParam(roomMessageReq)
+	if err != nil {
+		return roomMessageRsp, err
+	}
+
+	// TODO: 消息类型
 
 	logger.Info("HandleRoomMessage OUT", zap.Any("RoomMessageRsp", roomMessageRsp), zap.String("Seq", seq))
 	return roomMessageRsp, err
