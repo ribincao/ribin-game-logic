@@ -12,8 +12,8 @@ github.com/natefinch/lumberjack v2.0.0+incompatible h1:4QJd3OLAMgj7ph+yZTuX13Ld4
 github.com/natefinch/lumberjack v2.0.0+incompatible/go.mod h1:Wi9p2TTF5DG5oU+6YfsmYQpsTIOm0B1VNzQg9Mw6nPk=
 github.com/pkg/errors v0.8.1 h1:iURUrRGxPUNPdy5/HRSm+Yj6okJ6UtLINN0Q9M4+h3I=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
-github.com/ribincao/ribin-game-server v0.0.0-20230107110204-c78f3bb4cbce h1:5HIB49jQXORCTGcbhFAlFnfHCHEruU3LtEd19UafLMo=
-github.com/ribincao/ribin-game-server v0.0.0-20230107110204-c78f3bb4cbce/go.mod h1:mxvQn6n84qYyZddNmL2nkOdC4jSvoW0egRY9QObnU28=
+github.com/ribincao/ribin-game-server v0.0.0-20230109040644-746dc7614b0a h1:IVvIQ2CdXXEKLDKNmcNy6Q1Y+fFssbyOluAqKIub3Uw=
+github.com/ribincao/ribin-game-server v0.0.0-20230109040644-746dc7614b0a/go.mod h1:mxvQn6n84qYyZddNmL2nkOdC4jSvoW0egRY9QObnU28=
 github.com/ribincao/ribin-protocol v0.0.0-20230107104254-90bb94133d47 h1:IxA3Z7yG+zycdBfhHz5DwmIpihlNtk+bqWwneWUX9Ag=
 github.com/ribincao/ribin-protocol v0.0.0-20230107104254-90bb94133d47/go.mod h1:EsLQAhZnHlKI58UpsiO9qhO3ZV40NS4R33hb2BGBDUg=
 github.com/stretchr/testify v1.8.0 h1:pSgiaMZlXftHpm5L7V1+rVB+AZJydKsMxsQBIJw4PKk=
