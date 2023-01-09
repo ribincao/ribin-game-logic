@@ -31,8 +31,8 @@ func initLogger() {
 }
 
 func run(ctx context.Context) {
+	// TODO: Match-Server allocate Server
 	srv := server.NewServer(server.RoomServer)
-	// TODO: Set Handler / Set ConnCloseCallBack
 	srv.SetConnCloseCallback(handler.OnClose)
 	srv.SetHandler(handler.HandleRoomMessage)
 
