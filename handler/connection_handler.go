@@ -1,9 +1,9 @@
 package handler
 
 import (
+	"github.com/ribincao/ribin-game-logic/logic"
 	"github.com/ribincao/ribin-game-server/manager"
 	"github.com/ribincao/ribin-game-server/network"
-	"github.com/ribincao/ribin-game-server/types"
 )
 
 func OnClose(conn *network.WrapConnection) {
@@ -11,10 +11,10 @@ func OnClose(conn *network.WrapConnection) {
 	if roomId == "" {
 		return
 	}
-	// TODO: room kill player
-	room := manager.GetRoom[types.Room](roomId)
+	room := manager.GetRoom[*logic.NormalRoom](roomId)
 	if room == nil {
 		return
 	}
+	room.RemovePlayer(conn.PlayerId)
 	// TODO: Broadcast
 }
