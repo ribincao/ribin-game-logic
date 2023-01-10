@@ -52,7 +52,7 @@ func (r *NormalRoom) RemovePlayer(playerId string) {
 	r.playerMap.Delete(playerId)
 }
 
-func (r *NormalRoom) Broadcast(cmd base.Server2ClientBstType, data *base.RspBody, seq string) {
+func (r *NormalRoom) Broadcast(cmd base.Server2ClientBstType, data *base.BstBody, seq string) {
 	msg := &base.Server2ClientBst{
 		Type: cmd,
 		Body: data,

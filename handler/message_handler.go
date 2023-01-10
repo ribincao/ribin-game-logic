@@ -20,7 +20,7 @@ func JoinRoom(room *logic.NormalRoom, playerId string) (*base.RoomInfo, *errs.Er
 }
 
 func HandleMessage(room *logic.NormalRoom, player *logic.NormalPlayer, req *base.ReqBody) *errs.Error {
-	switch req.MsgType {
+	switch req.RoomMessageReq.MsgType {
 	case base.MsgType_E_MSGTYPE_CHAT:
 		logger.Info("Chat") // TODO: Chat
 	}

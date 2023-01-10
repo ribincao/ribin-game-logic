@@ -16,6 +16,8 @@ github.com/ribincao/ribin-game-server v0.0.0-20230109102138-7afa56c477f7 h1:UfVf
 github.com/ribincao/ribin-game-server v0.0.0-20230109102138-7afa56c477f7/go.mod h1:NBCoNLBgxiej6uM5TvhdpWy38D6LTNNtbW5qVVZrrrM=
 github.com/ribincao/ribin-protocol v0.0.0-20230109120723-da0984664b11 h1:S1ihuTbJ3LlZHDzL2cv+ts7HFrs3BS+062YeSIJXduI=
 github.com/ribincao/ribin-protocol v0.0.0-20230109120723-da0984664b11/go.mod h1:EsLQAhZnHlKI58UpsiO9qhO3ZV40NS4R33hb2BGBDUg=
+github.com/ribincao/ribin-protocol v0.0.0-20230110061250-559e8de7f5f8 h1:Q25qlE5wBhx+3W9DTA+LYQMdTE0Zru+lAS8zV44xMSY=
+github.com/ribincao/ribin-protocol v0.0.0-20230110061250-559e8de7f5f8/go.mod h1:EsLQAhZnHlKI58UpsiO9qhO3ZV40NS4R33hb2BGBDUg=
 github.com/stretchr/testify v1.8.0 h1:pSgiaMZlXftHpm5L7V1+rVB+AZJydKsMxsQBIJw4PKk=
 go.uber.org/atomic v1.10.0 h1:9qC72Qh0+3MqyJbAn8YU5xVq1frD8bn3JtD2oXtafVQ=
 go.uber.org/atomic v1.10.0/go.mod h1:LUxbIzbOniOlMKjJjyPfpl4v+PKK2cNJn91OQbhoJI0=
