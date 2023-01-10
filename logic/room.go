@@ -2,10 +2,14 @@ package logic
 
 import (
 	"sync"
+	"time"
 
 	"github.com/gorilla/websocket"
+	"github.com/ribincao/ribin-game-logic/constant"
 	"github.com/ribincao/ribin-game-server/codec"
 	"github.com/ribincao/ribin-game-server/network"
+	"github.com/ribincao/ribin-game-server/timer"
+	"github.com/ribincao/ribin-game-server/utils"
 	"github.com/ribincao/ribin-protocol/base"
 	"google.golang.org/protobuf/proto"
 )
@@ -13,7 +17,9 @@ import (
 type NormalRoom struct {
 	Id        string
 	Type      string
+	IsExist   bool
 	RoomInfo  *base.RoomInfo
+	TimeWheel *timer.TimeWheel
 	playerMap sync.Map
 }
 
@@ -25,6 +31,51 @@ func NewNormalRoom(roomId string) *NormalRoom {
 
 func (r *NormalRoom) GetId() string {
 	return r.Id
+}
+
+func (r *NormalRoom) Run() {
+	r.IsExist = false
+	utils.GoWithRecover(func() {
+		r.HealthCheck()
+	})
+	r.TimeWheel.Start()
+}
+
+func (r *NormalRoom) HealthCheck() {
+	ticker := time.NewTicker(constant.HEATH_CHECK_DURATION)
+	defer ticker.Stop()
+
+	for {
+		if !r.IsExist {
+			return
+		}
+		<-ticker.C
+
+		var deletePlayerIds []string
+		for _, player := range r.GetAllPlayers() {
+			playerId := player.GetId()
+			lastActiveTime := player.LastActiveTime
+			if time.Since(lastActiveTime).Seconds() > constant.BAD_NETWORK_TIME {
+				deletePlayerIds = append(deletePlayerIds, playerId)
+			}
+			if player.State == constant.PLAYER_STATE_OFFLINE {
+				deletePlayerIds = append(deletePlayerIds, playerId)
+			}
+		}
+		for _, playerId := range deletePlayerIds {
+			r.RemovePlayer(playerId)
+		}
+
+		if len(r.GetAllPlayers()) == 0 {
+			r.Destroy()
+		}
+
+	}
+
+}
+
+func (r *NormalRoom) Destroy() {
+
 }
 
 func (r *NormalRoom) GetPlayer(playerId string) *NormalPlayer {

@@ -17,5 +17,7 @@ func OnClose(conn *network.WrapConnection) {
 		return
 	}
 	room.RemovePlayer(conn.PlayerId)
-	room.Broadcast(base.Server2ClientBstType_E_PUSH_ROOM_MESSAGE, nil, "") // TODO: Broadcast
+
+	data := &base.BstBody{}
+	room.Broadcast(base.Server2ClientBstType_E_PUSH_ROOM_MESSAGE, data, "") // TODO: Broadcast
 }

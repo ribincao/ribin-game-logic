@@ -4,6 +4,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/ribincao/ribin-game-logic/constant"
 	"github.com/ribincao/ribin-game-server/logger"
 	"github.com/ribincao/ribin-game-server/network"
 	"go.uber.org/zap"
@@ -12,6 +13,7 @@ import (
 type NormalPlayer struct {
 	Id             string
 	Name           string
+	State          constant.PLAYER_NETWORK_STATE
 	LastActiveTime time.Time
 	RoomConn       *network.WrapConnection
 	sync.RWMutex
@@ -35,6 +37,7 @@ func (p *NormalPlayer) GetName() string {
 func (p *NormalPlayer) GetRoomConn() *network.WrapConnection {
 	return p.RoomConn
 }
+
 func (p *NormalPlayer) SetRoomConn(conn *network.WrapConnection) {
 	p.Lock()
 	if conn == p.RoomConn {

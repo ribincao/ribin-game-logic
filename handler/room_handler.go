@@ -100,7 +100,8 @@ func handleLeaveRoom(ctx context.Context, conn *network.WrapConnection, leaveRoo
 		return leaveRoomRsp, err
 	}
 	room.RemovePlayer(player.GetId())
-	room.Broadcast(base.Server2ClientBstType_E_PUSH_ROOM_LEAVE, nil, seq) // TODO: Broadcast
+	data := &base.BstBody{}
+	room.Broadcast(base.Server2ClientBstType_E_PUSH_ROOM_LEAVE, data, seq)
 
 	logger.Info("HandleLeaveRoom OUT", zap.Any("LeaveRoomRsp", leaveRoomRsp), zap.String("Seq", seq))
 	return leaveRoomRsp, err
