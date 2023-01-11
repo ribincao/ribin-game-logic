@@ -74,6 +74,10 @@ func handleEnterRoom(ctx context.Context, conn *network.WrapConnection, enterRoo
 			EnterRoomRsp: &base.EnterRoomRsp{},
 		}
 	)
+	defer func() {
+		logger.Info("HandleEnterRoom OUT", zap.Any("EnterRoomRsp", enterRoomRsp), zap.String("Seq", seq))
+	}()
+
 	manager.AddRoomToPlayerMap(enterRoomReq.RoomId, enterRoomReq.PlayerId)
 
 	room, _, err := CheckReqParam(enterRoomReq)
@@ -87,8 +91,6 @@ func handleEnterRoom(ctx context.Context, conn *network.WrapConnection, enterRoo
 		enterRoomRsp.EnterRoomRsp.RoomInfo = roomInfo
 		return enterRoomRsp, err
 	}
-
-	logger.Info("HandleEnterRoom OUT", zap.Any("EnterRoomRsp", enterRoomRsp), zap.String("Seq", seq))
 	return enterRoomRsp, err
 }
 
@@ -101,6 +103,9 @@ func handleLeaveRoom(ctx context.Context, conn *network.WrapConnection, leaveRoo
 			LeaveRoomRsp: &base.LeaveRoomRsp{},
 		}
 	)
+	defer func() {
+		logger.Info("HandleLeaveRoom OUT", zap.Any("LeaveRoomRsp", leaveRoomRsp), zap.String("Seq", seq))
+	}()
 	room, player, err := CheckReqParam(leaveRoomReq)
 	if err != nil {
 		return leaveRoomRsp, err
@@ -108,8 +113,6 @@ func handleLeaveRoom(ctx context.Context, conn *network.WrapConnection, leaveRoo
 	room.RemovePlayer(player.GetId())
 	data := &base.BstBody{}
 	room.Broadcast(base.Server2ClientBstType_E_PUSH_ROOM_LEAVE, data, seq)
-
-	logger.Info("HandleLeaveRoom OUT", zap.Any("LeaveRoomRsp", leaveRoomRsp), zap.String("Seq", seq))
 	return leaveRoomRsp, err
 }
 
@@ -142,6 +145,9 @@ func handleRoomMessage(ctx context.Context, roomMessageReq *base.ReqBody, seq st
 			RoomMessageRsp: &base.RoomMessageRsp{},
 		}
 	)
+	defer func() {
+		logger.Info("HandleRoomMessage OUT", zap.Any("RoomMessageRsp", roomMessageRsp), zap.String("Seq", seq))
+	}()
 	room, player, err := CheckReqParam(roomMessageReq)
 	if err != nil {
 		return roomMessageRsp, err
@@ -149,6 +155,5 @@ func handleRoomMessage(ctx context.Context, roomMessageReq *base.ReqBody, seq st
 
 	err = HandleMessage(room, player, roomMessageReq)
 
-	logger.Info("HandleRoomMessage OUT", zap.Any("RoomMessageRsp", roomMessageRsp), zap.String("Seq", seq))
 	return roomMessageRsp, err
 }

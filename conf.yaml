@@ -1,7 +1,7 @@
 serviceConfig:
   env: local
 logConfig:
-  logLevel: debug
+  logLevel: info
   logPath: server.log
   logMode: combine
   logMaxAge: 3
