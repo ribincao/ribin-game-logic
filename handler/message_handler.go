@@ -3,16 +3,18 @@ package handler
 import (
 	"github.com/ribincao/ribin-game-logic/logic"
 	errs "github.com/ribincao/ribin-game-server/error"
+	"github.com/ribincao/ribin-game-server/network"
 	"github.com/ribincao/ribin-protocol/base"
 )
 
-func CreateRoom(enterRoomReq *base.ReqBody) (*base.RoomInfo, *errs.Error) {
+func CreateRoom(enterRoomReq *base.ReqBody, conn *network.WrapConnection) (*base.RoomInfo, *errs.Error) {
 	roomId, playerId := enterRoomReq.RoomId, enterRoomReq.PlayerId
 	room := logic.NewNormalRoom(roomId)
-	return JoinRoom(room, playerId)
+	return JoinRoom(room, playerId, conn)
 }
-func JoinRoom(room *logic.NormalRoom, playerId string) (*base.RoomInfo, *errs.Error) {
+func JoinRoom(room *logic.NormalRoom, playerId string, conn *network.WrapConnection) (*base.RoomInfo, *errs.Error) {
 	player := logic.NewNormalPlayer(playerId, "TEST")
+	player.SetRoomConn(conn)
 	room.AddPlayer(player)
 	data := &base.BstBody{}
 	room.Broadcast(base.Server2ClientBstType_E_PUSH_ROOM_ENTER, data, "")

@@ -78,12 +78,12 @@ func handleEnterRoom(ctx context.Context, conn *network.WrapConnection, enterRoo
 
 	room, _, err := CheckReqParam(enterRoomReq)
 	if err == errs.RoomUnexistError {
-		roomInfo, err := CreateRoom(enterRoomReq)
+		roomInfo, err := CreateRoom(enterRoomReq, conn)
 		enterRoomRsp.EnterRoomRsp.RoomInfo = roomInfo
 		return enterRoomRsp, err
 	}
 	if err == errs.PlayerNotInRoomError {
-		roomInfo, err := JoinRoom(room, enterRoomReq.PlayerId)
+		roomInfo, err := JoinRoom(room, enterRoomReq.PlayerId, conn)
 		enterRoomRsp.EnterRoomRsp.RoomInfo = roomInfo
 		return enterRoomRsp, err
 	}

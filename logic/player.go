@@ -51,6 +51,7 @@ func (p *NormalPlayer) SetRoomConn(conn *network.WrapConnection) {
 			zap.Any("NewConnection", conn.Connection.RemoteAddr()))
 		oldConn = p.RoomConn
 	}
+	conn.PlayerId = p.Id
 	p.RoomConn = conn
 	p.Unlock()
 	if oldConn != nil {
