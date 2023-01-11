@@ -70,8 +70,12 @@ func handleEnterRoom(ctx context.Context, conn *network.WrapConnection, enterRoo
 	logger.Info("HandleEnterRoom IN", zap.Any("EnterRoomReq", enterRoomReq), zap.String("Seq", seq))
 	var (
 		err          *errs.Error
-		enterRoomRsp = &base.RspBody{}
+		enterRoomRsp = &base.RspBody{
+			EnterRoomRsp: &base.EnterRoomRsp{},
+		}
 	)
+	manager.AddRoomToPlayerMap(enterRoomReq.RoomId, enterRoomReq.PlayerId)
+
 	room, _, err := CheckReqParam(enterRoomReq)
 	if err == errs.RoomUnexistError {
 		roomInfo, err := CreateRoom(enterRoomReq)
@@ -93,7 +97,9 @@ func handleLeaveRoom(ctx context.Context, conn *network.WrapConnection, leaveRoo
 	logger.Info("HandleLeaveRoom IN", zap.Any("LeaveRoomReq", leaveRoomReq), zap.String("Seq", seq))
 	var (
 		err          *errs.Error
-		leaveRoomRsp = &base.RspBody{}
+		leaveRoomRsp = &base.RspBody{
+			LeaveRoomRsp: &base.LeaveRoomRsp{},
+		}
 	)
 	room, player, err := CheckReqParam(leaveRoomReq)
 	if err != nil {
@@ -132,7 +138,9 @@ func handleRoomMessage(ctx context.Context, roomMessageReq *base.ReqBody, seq st
 	logger.Info("HandleRoomMessage IN", zap.Any("RoomMessageReq", roomMessageReq), zap.String("Seq", seq))
 	var (
 		err            *errs.Error
-		roomMessageRsp = &base.RspBody{}
+		roomMessageRsp = &base.RspBody{
+			RoomMessageRsp: &base.RoomMessageRsp{},
+		}
 	)
 	room, player, err := CheckReqParam(roomMessageReq)
 	if err != nil {
