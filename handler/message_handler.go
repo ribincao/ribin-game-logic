@@ -3,6 +3,7 @@ package handler
 import (
 	"github.com/ribincao/ribin-game-logic/logic"
 	errs "github.com/ribincao/ribin-game-server/error"
+	"github.com/ribincao/ribin-game-server/manager"
 	"github.com/ribincao/ribin-game-server/network"
 	"github.com/ribincao/ribin-protocol/base"
 )
@@ -10,6 +11,7 @@ import (
 func CreateRoom(enterRoomReq *base.ReqBody, conn *network.WrapConnection) (*base.RoomInfo, *errs.Error) {
 	roomId, playerId := enterRoomReq.RoomId, enterRoomReq.PlayerId
 	room := logic.NewNormalRoom(roomId)
+	manager.RoomMng.AddRoom(room)
 	return JoinRoom(room, playerId, conn)
 }
 func JoinRoom(room *logic.NormalRoom, playerId string, conn *network.WrapConnection) (*base.RoomInfo, *errs.Error) {
