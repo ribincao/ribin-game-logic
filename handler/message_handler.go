@@ -3,9 +3,11 @@ package handler
 import (
 	"github.com/ribincao/ribin-game-logic/logic"
 	errs "github.com/ribincao/ribin-game-server/error"
+	"github.com/ribincao/ribin-game-server/logger"
 	"github.com/ribincao/ribin-game-server/manager"
 	"github.com/ribincao/ribin-game-server/network"
 	"github.com/ribincao/ribin-protocol/base"
+	"go.uber.org/zap"
 )
 
 func CreateRoom(enterRoomReq *base.ReqBody, conn *network.WrapConnection) (*base.RoomInfo, *errs.Error) {
@@ -24,10 +26,26 @@ func JoinRoom(room *logic.NormalRoom, playerId string, conn *network.WrapConnect
 }
 
 func HandleMessage(room *logic.NormalRoom, player *logic.NormalPlayer, req *base.ReqBody) *errs.Error {
+	var err *errs.Error
 	switch req.RoomMessageReq.MsgType {
 	case base.MsgType_E_MSGTYPE_CHAT:
-		data := &base.BstBody{}
-		room.Broadcast(base.Server2ClientBstType_E_PUSH_ROOM_MESSAGE, data, "")
+		err = roomChat(player.Id, room)
 	}
+	if err != nil {
+		logger.Error("HandleMessageError",
+			zap.Any("MsgType", req.RoomMessageReq.MsgType),
+			zap.String("PlayerId", player.Id),
+			zap.String("RoomId", room.Id),
+			zap.Error(err))
+		return err
+	}
+	return nil
+}
+
+func roomChat(playerId string, room *logic.NormalRoom) *errs.Error {
+	data := &base.BstBody{
+		FromPlayerId: playerId,
+	}
+	room.Broadcast(base.Server2ClientBstType_E_PUSH_ROOM_MESSAGE, data, "")
 	return nil
 }

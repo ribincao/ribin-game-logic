@@ -44,7 +44,6 @@ func run(ctx context.Context) {
 	srv.SetHandler(handler.HandleServerMessage)
 
 	utils.GoWithRecover(srv.Serve)
-
 	logger.Info("Server Start Success.", zap.Any("Port", port))
 }
 
@@ -64,9 +63,6 @@ func handleSignal(ctx context.Context, cancel context.CancelFunc) {
 	}
 
 	cancel()
-
-	// TODO: Destruct: Destroy Room
-
 	go func() {
 		time.Sleep(1 * time.Second)
 		os.Exit(0)

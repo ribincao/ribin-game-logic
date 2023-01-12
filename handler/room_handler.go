@@ -22,7 +22,7 @@ func HandleServerMessage(ctx context.Context, conn *network.WrapConnection, req 
 		rspBody = &base.RspBody{}
 	)
 
-	logger.Debug("HandleServerMessage IN", zap.Any("Req", req))
+	// logger.Debug("HandleServerMessage-IN", zap.Any("Req", req))
 	switch req.Cmd {
 	case base.Client2ServerReqCmd_E_CMD_HEART_BEAT:
 		rspBody, err = handleHeartBeat(ctx, conn, req.Body, req.Seq)
@@ -39,7 +39,7 @@ func HandleServerMessage(ctx context.Context, conn *network.WrapConnection, req 
 		rsp.Msg = err.Message
 	}
 	rsp.Body = rspBody
-	logger.Debug("HandleServerMessage OUT", zap.Any("Rsp", req))
+	// logger.Debug("HandleServerMessage-OUT", zap.Any("Rsp", rsp))
 	return rsp, err
 }
 
@@ -67,7 +67,7 @@ func CheckReqParam(req *base.ReqBody) (*logic.NormalRoom, *logic.NormalPlayer, *
 
 // EnterRoom
 func handleEnterRoom(ctx context.Context, conn *network.WrapConnection, enterRoomReq *base.ReqBody, seq string) (*base.RspBody, *errs.Error) {
-	logger.Info("HandleEnterRoom IN", zap.Any("EnterRoomReq", enterRoomReq), zap.String("Seq", seq))
+	logger.Info("HandleEnterRoom-IN", zap.Any("EnterRoomReq", enterRoomReq), zap.String("Seq", seq))
 	var (
 		err          *errs.Error
 		enterRoomRsp = &base.RspBody{
@@ -75,7 +75,7 @@ func handleEnterRoom(ctx context.Context, conn *network.WrapConnection, enterRoo
 		}
 	)
 	defer func() {
-		logger.Info("HandleEnterRoom OUT", zap.Any("EnterRoomRsp", enterRoomRsp), zap.String("Seq", seq))
+		logger.Info("HandleEnterRoom-OUT", zap.Any("EnterRoomRsp", enterRoomRsp), zap.String("Seq", seq), zap.Error(err))
 	}()
 
 	manager.AddRoomToPlayerMap(enterRoomReq.RoomId, enterRoomReq.PlayerId)
@@ -96,7 +96,7 @@ func handleEnterRoom(ctx context.Context, conn *network.WrapConnection, enterRoo
 
 // LeaveRoom
 func handleLeaveRoom(ctx context.Context, conn *network.WrapConnection, leaveRoomReq *base.ReqBody, seq string) (*base.RspBody, *errs.Error) {
-	logger.Info("HandleLeaveRoom IN", zap.Any("LeaveRoomReq", leaveRoomReq), zap.String("Seq", seq))
+	logger.Info("HandleLeaveRoom-IN", zap.Any("LeaveRoomReq", leaveRoomReq), zap.String("Seq", seq))
 	var (
 		err          *errs.Error
 		leaveRoomRsp = &base.RspBody{
@@ -104,7 +104,7 @@ func handleLeaveRoom(ctx context.Context, conn *network.WrapConnection, leaveRoo
 		}
 	)
 	defer func() {
-		logger.Info("HandleLeaveRoom OUT", zap.Any("LeaveRoomRsp", leaveRoomRsp), zap.String("Seq", seq))
+		logger.Info("HandleLeaveRoom-OUT", zap.Any("LeaveRoomRsp", leaveRoomRsp), zap.String("Seq", seq), zap.Error(err))
 	}()
 	room, player, err := CheckReqParam(leaveRoomReq)
 	if err != nil {
@@ -138,7 +138,7 @@ func handleHeartBeat(ctx context.Context, conn *network.WrapConnection, heartBea
 
 // Message
 func handleRoomMessage(ctx context.Context, roomMessageReq *base.ReqBody, seq string) (*base.RspBody, *errs.Error) {
-	logger.Info("HandleRoomMessage IN", zap.Any("RoomMessageReq", roomMessageReq), zap.String("Seq", seq))
+	logger.Info("HandleRoomMessage-IN", zap.Any("RoomMessageReq", roomMessageReq), zap.String("Seq", seq))
 	var (
 		err            *errs.Error
 		roomMessageRsp = &base.RspBody{
@@ -146,7 +146,7 @@ func handleRoomMessage(ctx context.Context, roomMessageReq *base.ReqBody, seq st
 		}
 	)
 	defer func() {
-		logger.Info("HandleRoomMessage OUT", zap.Any("RoomMessageRsp", roomMessageRsp), zap.String("Seq", seq))
+		logger.Info("HandleRoomMessage-OUT", zap.Any("RoomMessageRsp", roomMessageRsp), zap.String("Seq", seq), zap.Error(err))
 	}()
 	room, player, err := CheckReqParam(roomMessageReq)
 	if err != nil {
