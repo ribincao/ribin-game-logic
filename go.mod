@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/gorilla/websocket v1.5.0
-	github.com/ribincao/ribin-game-server v0.0.0-20230109102138-7afa56c477f7
+	github.com/ribincao/ribin-game-server v0.0.0-20230112035443-f65ae650465d
 	github.com/ribincao/ribin-protocol v0.0.0-20230110061250-559e8de7f5f8
 	go.uber.org/zap v1.24.0
 	google.golang.org/protobuf v1.28.1

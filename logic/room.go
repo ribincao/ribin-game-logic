@@ -11,7 +11,6 @@ import (
 	"github.com/ribincao/ribin-game-server/timer"
 	"github.com/ribincao/ribin-game-server/utils"
 	"github.com/ribincao/ribin-protocol/base"
-	"google.golang.org/protobuf/proto"
 )
 
 type NormalRoom struct {
@@ -109,7 +108,7 @@ func (r *NormalRoom) Broadcast(cmd base.Server2ClientBstType, data *base.BstBody
 		Body: data,
 		Seq:  seq,
 	}
-	reqbuf, err := proto.Marshal(msg)
+	reqbuf, err := codec.DefaultMarshal.Marshal(msg)
 	if err != nil {
 		return
 	}
