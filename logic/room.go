@@ -108,12 +108,12 @@ func (r *NormalRoom) Broadcast(cmd base.Server2ClientBstType, data *base.BstBody
 		Body: data,
 		Seq:  seq,
 	}
-	reqbuf, err := codec.DefaultMarshal.Marshal(msg)
+	reqbuf, err := codec.GetMarshaller(constant.ROOM_SERVER).Marshal(msg)
 	if err != nil {
 		return
 	}
 
-	frame, err := codec.DefaultCodec.Encode(reqbuf, codec.Broadcast)
+	frame, err := codec.GetCodec(constant.ROOM_SERVER).Encode(reqbuf, codec.Broadcast)
 	if err != nil {
 		return
 	}

@@ -4,6 +4,7 @@ import "time"
 
 const (
 	CONFIG_PATH = "./conf.yaml"
+	ROOM_SERVER = "room"
 
 	HEATH_CHECK_DURATION = time.Second * 3
 	BAD_NETWORK_TIME     = 30
