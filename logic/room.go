@@ -48,11 +48,8 @@ func (r *NormalRoom) handleFrame() {
 	ticker := time.NewTicker(constant.FRAME_SEND_TIME * time.Millisecond)
 	defer ticker.Stop()
 	for {
-		select {
-		case <-ticker.C:
-			r.broadcastFrame("")
-		}
-
+		<-ticker.C
+		r.broadcastFrame("")
 	}
 }
 
