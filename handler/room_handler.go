@@ -32,6 +32,8 @@ func HandleServerMessage(ctx context.Context, conn *network.WrapConnection, req 
 		rspBody, err = handleLeaveRoom(ctx, conn, req.Body, req.Seq)
 	case base.Client2ServerReqCmd_E_CMD_ROOM_MESSAGE:
 		rspBody, err = handleRoomMessage(ctx, req.Body, req.Seq)
+	case base.Client2ServerReqCmd_E_CMD_ROOM_FRAME:
+		handleRoomFrame(ctx, req.Body, req.Seq)
 	}
 
 	if err != nil {
@@ -156,4 +158,17 @@ func handleRoomMessage(ctx context.Context, roomMessageReq *base.ReqBody, seq st
 	err = HandleMessage(room, player, roomMessageReq)
 
 	return roomMessageRsp, err
+}
+
+func handleRoomFrame(ctx context.Context, frameReq *base.ReqBody, seq string) {
+	logger.Info("HandleRoomFrame-IN", zap.Any("RoomFrameReq", frameReq), zap.String("Seq", seq))
+	room, player, _ := CheckReqParam(frameReq)
+	if room == nil || player == nil {
+		return
+	}
+	if frameReq.SendframeReq == nil {
+		logger.Warn("HandleRoomFrameError", zap.String("PlayerId", player.GetId()), zap.String("RoomId", room.GetId()))
+		return
+	}
+	room.RecvFrame(frameReq.SendframeReq)
 }

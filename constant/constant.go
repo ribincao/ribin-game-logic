@@ -8,6 +8,8 @@ const (
 
 	HEATH_CHECK_DURATION = time.Second * 3
 	BAD_NETWORK_TIME     = 30
+	FRAME_SEND_TIME      = 60
+	MaxFrameCnt          = 80
 )
 
 type PLAYER_NETWORK_STATE uint8

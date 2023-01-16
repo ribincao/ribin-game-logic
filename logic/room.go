@@ -17,6 +17,7 @@ type NormalRoom struct {
 	Id        string
 	Type      string
 	IsExist   bool
+	Frames    chan *base.Frame
 	RoomInfo  *base.RoomInfo
 	TimeWheel *timer.TimeWheel
 	playerMap sync.Map
@@ -37,7 +38,57 @@ func (r *NormalRoom) Run() {
 	utils.GoWithRecover(func() {
 		r.HealthCheck()
 	})
+	utils.GoWithRecover(func() {
+		r.handleFrame()
+	})
 	r.TimeWheel.Start()
+}
+
+func (r *NormalRoom) handleFrame() {
+	ticker := time.NewTicker(constant.FRAME_SEND_TIME * time.Millisecond)
+	defer ticker.Stop()
+	for {
+		select {
+		case <-ticker.C:
+			r.broadcastFrame("")
+		}
+
+	}
+}
+
+func (r *NormalRoom) RecvFrame(frame *base.Frame) {
+	utils.GoWithRecover(func() {
+		r.Frames <- frame
+	})
+}
+
+func (r *NormalRoom) broadcastFrame(seq string) {
+	frames := r.getFrames()
+	bstFrames := &base.Frames{
+		Frames: frames,
+	}
+	data := &base.BstBody{
+		Frames: bstFrames,
+	}
+	r.Broadcast(base.Server2ClientBstType_E_PUSH_ROOM_FRAMES, data, seq)
+}
+
+func (r *NormalRoom) getFrames() []*base.Frame {
+	var frames []*base.Frame
+	cnt := 0
+	for {
+		select {
+		case frame := <-r.Frames:
+			if cnt >= constant.MaxFrameCnt {
+				cnt++
+				return frames
+			}
+			cnt++
+			frames = append(frames, frame)
+		default:
+			return frames
+		}
+	}
 }
 
 func (r *NormalRoom) HealthCheck() {
@@ -68,7 +119,6 @@ func (r *NormalRoom) HealthCheck() {
 		if len(r.GetAllPlayers()) == 0 {
 			r.Destroy()
 		}
-
 	}
 
 }

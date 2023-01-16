@@ -39,7 +39,7 @@ func run(ctx context.Context) {
 	if config.GlobalConfig.ServiceConfig.Env == "local" {
 		port = TestPort
 	}
-	srv := server.NewServer(server.RoomServer, server.WithAddress(fmt.Sprintf(":%d", port)))
+	srv := server.NewServer[*server.RoomServer](server.RoomServerType, server.WithAddress(fmt.Sprintf(":%d", port)))
 	srv.SetConnCloseCallback(handler.OnClose)
 	srv.SetHandler(handler.HandleServerMessage)
 
