@@ -20,6 +20,8 @@ github.com/ribincao/ribin-protocol v0.0.0-20230110061250-559e8de7f5f8 h1:Q25qlE5
 github.com/ribincao/ribin-protocol v0.0.0-20230110061250-559e8de7f5f8/go.mod h1:EsLQAhZnHlKI58UpsiO9qhO3ZV40NS4R33hb2BGBDUg=
 github.com/ribincao/ribin-protocol v0.0.0-20230116093142-e002164f78f3 h1:lUuu9joLZZgkLVJDUzcAimfv5r7iqE1zNyi50cVU5Ow=
 github.com/ribincao/ribin-protocol v0.0.0-20230116093142-e002164f78f3/go.mod h1:EsLQAhZnHlKI58UpsiO9qhO3ZV40NS4R33hb2BGBDUg=
+github.com/ribincao/ribin-protocol v0.0.0-20230116101556-b1cac92c21c2 h1:XyYUIx7yCe31C15eg0ZkYtPadFfdH5iKI+jMWG5215s=
+github.com/ribincao/ribin-protocol v0.0.0-20230116101556-b1cac92c21c2/go.mod h1:EsLQAhZnHlKI58UpsiO9qhO3ZV40NS4R33hb2BGBDUg=
 github.com/stretchr/testify v1.8.0 h1:pSgiaMZlXftHpm5L7V1+rVB+AZJydKsMxsQBIJw4PKk=
 go.uber.org/atomic v1.10.0 h1:9qC72Qh0+3MqyJbAn8YU5xVq1frD8bn3JtD2oXtafVQ=
 go.uber.org/atomic v1.10.0/go.mod h1:LUxbIzbOniOlMKjJjyPfpl4v+PKK2cNJn91OQbhoJI0=
